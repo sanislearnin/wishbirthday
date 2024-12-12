@@ -53,12 +53,13 @@ button {
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 
 button:hover {
-  background-color: #218838;
+  background-color: #6c6c6c; 
+  color: #9933cc;
 }
 
 /* Responsive Design */
