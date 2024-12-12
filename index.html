@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Birthday Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { max-width: 400px; margin: auto; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select, button { width: 100%; padding: 10px; margin-bottom: 15px; }
+    button { background-color: #28a745; color: white; border: none; }
+  </style>
+</head>
+<body>
+  <h1>Birthday Tracker</h1>
+  <form id="birthdayForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message" required>
+
+    <label for="tone">Tone:</label>
+    <input type="text" id="tone" name="tone" required>
+
+    <label for="gift">Did they give a gift?</label>
+    <select id="gift" name="gift" required>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('birthdayForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = {
+        name: form.name.value,
+        message: form.message.value,
+        tone: form.tone.value,
+        gift: form.gift.value,
+      };
+
+      try {
+        const response = await fetch('http://localhost:5000/add_wish', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          alert('Wish saved successfully!');
+          form.reset();
+        } else {
+          alert('Error saving wish.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Failed to connect to the server.');
+      }
+    });
+  </script>
+</body>
+</html>
